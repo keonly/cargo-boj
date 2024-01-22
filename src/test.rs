@@ -14,7 +14,7 @@ use crate::Result;
 
 fn precompile_bin(bin: &str) -> Result<()> {
     let mut command = Command::new("cargo");
-    command.args(["build", "--bin", bin, "--release"]);
+    command.args(["build", "--workspace", "--bin", bin, "--release"]);
     let exitstatus = command
         .stdin(Stdio::null())
         .stdout(Stdio::null())
@@ -24,7 +24,7 @@ fn precompile_bin(bin: &str) -> Result<()> {
         .wait()
         .unwrap();
     if !exitstatus.success() {
-        Err(format!("Error: `cargo build --bin {} --release` failed.", bin))?
+        Err(format!("Error: `cargo build --workspace --bin {} --release` failed.", bin))?
     }
     Ok(())
 }
